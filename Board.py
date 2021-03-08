@@ -56,7 +56,7 @@ class Board:
                             continue
                         if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                             taskQueue.append(Task([tmpX, tmpY], False))  # 右击该方块
-                        # todo 对所有插旗方格调用Check函数更新并检查其四周的格子是否可解
+                        # todo 对所有插旗方格调用Check函数更新并检查其四周的格子是否可解(optional)
                         pass 
                     continue
                 # 策略二：一个格子四周的插旗数达到其数字，将未翻开的全部翻开
@@ -77,10 +77,18 @@ class Board:
 
 
                 # 策略四：当以上策略都失效时，结合剩余的雷数使用枚举法推理
-                if len(taskQueue) != 0:
-                    return taskQueue
-                pass
+                if len(taskQueue) == 0:
+                    pass
 
+        # 队列中操作去重
+        tmpList = []
+        for task in taskQueue:
+            for item in tmpList:
+                if task.pos == item.pos:
+                    break
+            else:
+                tmpList.append(task)
+        return tmpList
 
     # 当标记某个格子为地雷后，更新并检查其四周的格子是否可解 
     def Check(self):
@@ -105,4 +113,7 @@ if __name__ == '__main__':
     ]
     x = Board(9, 5)
     x.Refresh(lt)
-    x.Report()
+    # x.Report()
+    ret1 = x.Solution()
+    for task in ret1:
+        print(task.__dict__)

@@ -5,4 +5,4 @@ class Task:
         # op为True代表单击左键，op为False代表单击右键
 
     def Execute(self):
-        
+        pass
