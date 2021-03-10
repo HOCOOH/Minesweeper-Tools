@@ -22,78 +22,238 @@ for i in range(width):
             Broad_o.grd[x_0][y_0].status = -2#假设插了个旗子
             Broad_o.grd[x_1][y_1].status = -2
             if abs(x_0 - x_1) == 2 and abs(y_0 - y_1) == 2:
-                pass#无解对角线
+                continue#无解对角线
             elif x_0 == x_1 and abs(y_0 - y_1)== 1:#上下挨着
                 if Broad_o.grd[x_0+1][y_0].status - Broad_o.grd[x_0+1][y_0].numMine -1 ==0:
                     Broad_o.grd[x_0+1][y_0].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0+1, y_0
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_0-1][y_0].status - Broad_o.grd[x_0-1][y_0].numMine -1 ==0:
                     Broad_o.grd[x_0-1][y_0].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0-1, y_0
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_0+1][y_1].status - Broad_o.grd[x_0+1][y_1].numMine -1 ==0:
                     Broad_o.grd[x_0+1][y_1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0+1, y_1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_0-1][y_1].status - Broad_o.grd[x_0-1][y_1].numMine -1 ==0:
                     Broad_o.grd[x_0-1][y_1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0-1, y_1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
 
 
                 if Broad_o.grd[x_0+1][y_0].status - Broad_o[x_0+1][y_0].numMine - 1 == Broad_o.grd[x_0+1][y_0].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0+1, y_0
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_0-1][y_0].status - Broad_o[x_0-1][y_0].numMine - 1 == Broad_o.grd[x_0-1][y_0].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0-1, y_0
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_0+1][y_1].status - Broad_o[x_0+1][y_1].numMine - 1 == Broad_o.grd[x_0+1][y_1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0+1, y_1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_0-1][y_1].status - Broad_o[x_0-1][y_1].numMine - 1 == Broad_o.grd[x_0-1][y_1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0-1, y_1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 
 
             elif x_0 == x_1 and abs(y_0 - y_1)== 2:#上下隔着
                 if Broad_o.grd[x_0+1][(y_0+y_1)/2].status - Broad_o.grd[x_0+1][(y_0+y_1)/2].numMine -1 ==0:
                     Broad_o.grd[x_0+1][(y_0+y_1)/2].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0+1, (y_0+y_1)/2
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_0-1][(y_0+y_1)/2].status - Broad_o.grd[x_0-1][(y_0+y_1)/2].numMine -1 ==0:
                     Broad_o.grd[x_0-1][(y_0+y_1)/2].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0-1, (y_0+y_1)/2
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
 
                 if Broad_o.grd[x_0+1][(y_0+y_1)/2].status - Broad_o[x_0+1][(y_0+y_1)/2].numMine - 1 == Broad_o.grd[x_0+1][(y_0+y_1)/2].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0+1, (y_0+y_1)/2
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_0-1][(y_0+y_1)/2].status - Broad_o[x_0-1][(y_0+y_1)/2].numMine - 1 == Broad_o.grd[x_0-1][(y_0+y_1)/2].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0-1, (y_0+y_1)/2
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 
 
             elif abs(x_0 - x_1)== 1 and y_0 == y_1:#左右挨着
                 if Broad_o.grd[x_0][y_0+1].status - Broad_o.grd[x_0][y_0+1].numMine -1 ==0:
                     Broad_o.grd[x_0][y_0+1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0, y_0+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_0][y_0-1].status - Broad_o.grd[x_0][y_0-1].numMine -1 ==0:
                     Broad_o.grd[x_0][y_0-1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_0, y_0-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_1][y_1+1].status - Broad_o.grd[x_1][y_1+1].numMine -1 ==0:
                     Broad_o.grd[x_1][y_1+1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_1, y_0+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[x_1][y_1-1].status - Broad_o.grd[x_1][y_1-1].numMine -1 ==0:
                     Broad_o.grd[x_1][y_1-1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = x_1, y_0-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
 
                 if Broad_o.grd[x_0][y_0+1].status - Broad_o[x_0][y_0+1].numMine - 1 == Broad_o.grd[x_0][y_0+1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0, y_0+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_0][y_0-1].status - Broad_o[x_0][y_0-1].numMine - 1 == Broad_o.grd[x_0][y_0-1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_0, y_0-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_1][y_1+1].status - Broad_o[x_1][y_1+1].numMine - 1 == Broad_o.grd[x_1][y_1+1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_1, y_1+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[x_1][y_1-1].status - Broad_o[x_1][y_1-1].numMine - 1 == Broad_o.grd[x_1][y_1-1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = x_1, y_1-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
 
                     
 
@@ -101,17 +261,49 @@ for i in range(width):
                 if Broad_o.grd[(x_0+x_1)/2][y_0+1].status - Broad_o.grd[(x_0+x_1)/2][y_0+1].numMine -1 ==0:
                     Broad_o.grd[(x_0+x_1)/2][y_0+1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = (x_0+x_1)/2 , y_0+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
                 if Broad_o.grd[(x_0+x_1)/2][y_0-1].status - Broad_o.grd[(x_0+x_1)/2][y_0-1].numMine -1 ==0:
                     Broad_o.grd[(x_0+x_1)/2][y_0-1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
+                    tmpX, tmpY = (x_0+x_1)/2 , y_0-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], True))
 
 
                 if Broad_o.grd[(x_0+x_1)/2][y_0+1].status - Broad_o.grd[(x_0+x_1)/2][y_0+1].numMine - 1 == Broad_o.grd[(x_0+x_1)/2][y_0+1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = (x_0+x_1)/2 , y_0+1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
                 if Broad_o.grd[(x_0+x_1)/2][y_0-1].status - Broad_o.grd[(x_0+x_1)/2][y_0-1].numMine - 1 == Broad_o.grd[(x_0+x_1)/2][y_0-1].numUnsolved -2:
                     #仍是活点死不了
                     #push queue 遍历八个格子没插的全插
+                    tmpX, tmpY = (x_0+x_1)/2 , y_0-1
+                    for k in range(8):
+                        tmpX += Broad_o.DIR[k][0]
+                        tmpY += Broad_o.DIR[k][1]
+                        if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
+                            continue
+                        if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                            taskQueue.append(Task([tmpX, tmpY], False))
 
             Broad_o.grd[x_0][y_0].status = -1#保持未翻开
             Broad_o.grd[x_1][y_1].status = -1
@@ -130,7 +322,7 @@ for i in range(width):
                 tmpY += Broad_o.DIR[k][1]
                 if tmpX < 0 or tmpX >= Broad_o.width or tmpY < 0 or tmpY >= Broad_o.height:
                     continue
-                if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
+                if Broad_o.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                     a.append([tmpX,tmpY])#语法可能错了
 
 
