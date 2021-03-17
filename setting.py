@@ -1,4 +1,9 @@
+from threading import Thread
+
+
 SIZE = 16
+THREAD_SIZE = 32
+GROUP_SIZE = 8
 WINDOW_NAME = 'Microsoft Minesweeper'
 WINDOW_POSITION = [(409,108),(1177, 108),(409,878),(1180,880)]
 WINDOW_HEIGHT = 768 

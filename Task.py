@@ -11,7 +11,7 @@ class Task:
 
     def Execute(self):
         # 进行坐标的换算
-        touch_pos = (419+self.pos[0]*(PIXEL_GAPX), 118+self.pos[1]*(PIXEL_GAPY))
+        touch_pos = (419+self.pos[0]*(s.PIXEL_GAPX), 118+self.pos[1]*(s.PIXEL_GAPY))
         ctypes.windll.user32.SetCursorPos(int(touch_pos[0]),int(touch_pos[1]))
 
         if self.op == True:

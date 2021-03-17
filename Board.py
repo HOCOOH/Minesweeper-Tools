@@ -23,13 +23,11 @@ class Board:
         return around
 
     # 每次获取图像数据后，对格子相关数据进行更新
-    # todo 对第一次输入设置死格子
     def Refresh(self, nums):
         for i in range(self.width):
             for j in range(self.height):
-                if self.grd[i][j].isDead == True: # 跳过死格子
-                    continue
-                self.grd[i][j].status = nums[j][i]
+                if self.grd[i][j].status == Grid.UNSOLVED: # 更新未翻开的格子
+                    self.grd[i][j].status = nums[j][i]
         # 更新周围格子的信息
         for i in range(self.width):
             for j in range(self.height):
@@ -59,9 +57,10 @@ class Board:
                     for k in lt:
                         if k.status == Grid.UNSOLVED:
                             k.status = Grid.MINE
+                            k.isDead = True
                             taskQueue.append(Task(k.pos, False))  # 右击该方块
-                        # 对所有插旗方格调用Check函数更新并检查其四周的格子是否可解(optional)
-                        # self.Check(k.pos)
+                            # 对所有插旗方格调用Check函数更新并检查其四周的格子是否可解(optional)
+                            self.Check(k, taskQueue)
                     continue
                 # 策略二：一个格子四周的插旗数达到其数字，将未翻开的全部翻开
                 if self.grd[i][j].status == self.grd[i][j].numMine:
@@ -76,8 +75,7 @@ class Board:
                 pass
 
                 # 策略四：当以上策略都失效时，结合剩余的雷数使用枚举法推理
-                if len(taskQueue) == 0:
-                    pass
+                pass
 
         # 队列中操作去重
         tmpList = []
@@ -87,18 +85,26 @@ class Board:
                     break
             else:
                 tmpList.append(task)
+        tmpList.sort(key=lambda x: x.op)
         return tmpList
         
-'''
+
     # 当标记某个格子为地雷后，更新并检查其四周的格子是否可解 
-    def Check(self, tar: Grid):
+    def Check(self, tar: Grid, taskQueue: list[Task]):
         lt = self.GetAround(tar)
         for k in lt:
-            if k.isDead == True or k.status == Grid.UNSOLVED:  # 跳过已死,旗子，没翻开，空白
+            if k.isDead == True or k.status == Grid.UNSOLVED:  # 跳过已死，没翻开
                 continue
-            ard = self.GetAround(k)
-            for item in ard:
-'''
+            # k是新插旗格子周围未解的数字格
+            k.numMine += 1
+            k.numUnsolved -= 1
+            if k.status == k.numMine:
+                k.isDead = True
+                # 遍历周围八个格子没翻的全翻开
+                ard = self.GetAround(k)
+                for item in ard:
+                    if item.status == Grid.UNSOLVED:
+                        taskQueue.append(Task(item.pos, True))  # 左击该方块
 
     # dubug
     def Report(self):
@@ -106,6 +112,7 @@ class Board:
             for j in range(self.height):
                 print('[%d, %d]: num = %d, mine = %d, unsolved = %d' % \
                     (i, j, self.grd[i][j].status, self.grd[i][j].numMine, self.grd[i][j].numUnsolved))
+
 
 
 

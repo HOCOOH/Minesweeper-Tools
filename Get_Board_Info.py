@@ -48,7 +48,7 @@ class Get_Board_Info():
         wrHd=win32gui.FindWindow(None,'Microsoft Minesweeper')
         win32gui.SetForegroundWindow(wrHd)
         win32gui.ShowWindow(wrHd,win32con.SW_MAXIMIZE)
-        time.sleep(0.5)
+        time.sleep(0.2)
 
         start=time.time()
         pool = Pool(processes=self.SIZE)
@@ -61,11 +61,11 @@ class Get_Board_Info():
 
         os.system('del *.png')
         end=time.time()
-        print(end-start)
+        print('scan: ' + str(end-start))
         return res
     
     def work(self,):
-       return self.get_all_info()
+        return self.get_all_info()
     
     def final_dealing(self,re):
         Board_Info = []
@@ -74,7 +74,7 @@ class Get_Board_Info():
         return Board_Info
 
 
-'''
+
 
 if __name__ == '__main__':
     test = Get_Board_Info(s.PIXEL_GAPX,s.PIXEL_GAPY,s.PIXEL_SIZE,s.CF, s.SIZE, s.BLOCKS,s.CNT_THRESHOLD)
@@ -82,4 +82,3 @@ if __name__ == '__main__':
     for i in range(16):
         print(Board_Info[i])
 
-'''
