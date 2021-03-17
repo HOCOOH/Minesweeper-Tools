@@ -15,7 +15,10 @@ for i in range(width):
             if abs(x_0 - x_1) == 2 and abs(y_0 - y_1) == 2:
                 continue#无解对角线
             elif x_0 == x_1 and abs(y_0 - y_1)== 1:#上下挨着
-                if self.grd[x_0+1][y_0].status - self.grd[x_0+1][y_0].numMine -1 ==0:
+
+# dirList = [(1, 0), (-1, 0), ]
+
+                if self.grd[x_0+1][y_0].status - self.grd[x_0+1][y_0].numMine -1 == 0:
                     self.grd[x_0+1][y_0].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
                     tmpX, tmpY = x_0+1, y_0
@@ -26,7 +29,7 @@ for i in range(width):
                             continue
                         if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                             taskQueue.append(Task([tmpX, tmpY], True))
-                if self.grd[x_0-1][y_0].status - self.grd[x_0-1][y_0].numMine -1 ==0:
+                if self.grd[x_0-1][y_0].status - self.grd[x_0-1][y_0].numMine -1 == 0:
                     self.grd[x_0-1][y_0].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
                     tmpX, tmpY = x_0-1, y_0
@@ -37,7 +40,7 @@ for i in range(width):
                             continue
                         if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                             taskQueue.append(Task([tmpX, tmpY], True))
-                if self.grd[x_0+1][y_1].status - self.grd[x_0+1][y_1].numMine -1 ==0:
+                if self.grd[x_0+1][y_1].status - self.grd[x_0+1][y_1].numMine -1 == 0:
                     self.grd[x_0+1][y_1].isDead = True #已死插满
                     #push queue 遍历八个格子没翻的全翻
                     tmpX, tmpY = x_0+1, y_1
@@ -59,6 +62,11 @@ for i in range(width):
                             continue
                         if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                             taskQueue.append(Task([tmpX, tmpY], True))
+
+
+
+
+
 
 
                 if self.grd[x_0+1][y_0].status - self[x_0+1][y_0].numMine - 1 == self.grd[x_0+1][y_0].numUnsolved -2:
@@ -107,6 +115,12 @@ for i in range(width):
                             taskQueue.append(Task([tmpX, tmpY], False))
                 
 
+
+
+
+
+
+
             elif x_0 == x_1 and abs(y_0 - y_1)== 2:#上下隔着
                 if self.grd[x_0+1][(y_0+y_1)/2].status - self.grd[x_0+1][(y_0+y_1)/2].numMine -1 ==0:
                     self.grd[x_0+1][(y_0+y_1)/2].isDead = True #已死插满
@@ -154,6 +168,12 @@ for i in range(width):
                         if self.grd[tmpX][tmpY].status == Grid.UNSOLVED:
                             taskQueue.append(Task([tmpX, tmpY], False))
                 
+
+
+
+
+
+
 
             elif abs(x_0 - x_1)== 1 and y_0 == y_1:#左右挨着
                 if self.grd[x_0][y_0+1].status - self.grd[x_0][y_0+1].numMine -1 ==0:
