@@ -14,11 +14,11 @@ if __name__ == '__main__':
 
     # 初始化棋盘
     width, height = 16, 16
-    board = Board(width, height)
+    board = Board(width, height, 40)
+    test = Get_Board_Info(s.PIXEL_GAPX,s.PIXEL_GAPY,s.PIXEL_SIZE,s.CF, s.SIZE, s.BLOCKS,s.CNT_THRESHOLD)
     # for i in range(2):
-    while True:
+    while board.mineLeft > 0:
         # 获取图像数据
-        test = Get_Board_Info(s.PIXEL_GAPX,s.PIXEL_GAPY,s.PIXEL_SIZE,s.CF, s.SIZE, s.BLOCKS,s.CNT_THRESHOLD)
         Board_Info = test.final_dealing(test.work())
         # 算法分析
         startTime = time.time()
