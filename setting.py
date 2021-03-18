@@ -11,3 +11,4 @@ BLOCKS = {'unknown':-2,'flag':-1,'white':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6}
 CNT_THRESHOLD = 5
 CELL_SIZE = 25
 BOARD_PIX_SIZE = 770
+MINE_TOTAL = 40

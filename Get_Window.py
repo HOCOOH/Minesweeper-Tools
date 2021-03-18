@@ -1,7 +1,4 @@
-import setting as s
-import win32ui
 import win32gui
-import win32api
 import win32con
 import time
 
@@ -12,7 +9,7 @@ class Get_Window():
         self.WINDOW_NAME = WINDOW_NAME
         
     def work(self,):
-        wrHd=win32gui.FindWindow(None, self.WINDOW_NAME)
+        wrHd = win32gui.FindWindow(None, self.WINDOW_NAME)
         win32gui.SetForegroundWindow(wrHd)
         win32gui.ShowWindow(wrHd,win32con.SW_MAXIMIZE)
-        time.sleep(0.3)
+        time.sleep(0.2)

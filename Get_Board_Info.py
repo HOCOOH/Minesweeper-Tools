@@ -59,8 +59,6 @@ class Get_Board_Info():
         window_cut = Window_Cut(self.PIXEL_GAPX, self.PIXEL_GAPY, self.PIXEL_SIZE, self.BOARD_PIX_SIZE)
         shoot = window_cut.work()
 
-       
-
         im = Image.open("./demo.png",'r')
         pixel_values = list(im.getdata())
 

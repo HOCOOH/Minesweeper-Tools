@@ -2,6 +2,7 @@ import win32api
 import setting as s
 import win32con
 import ctypes
+import time
 
 class Task:
     def __init__(self, position: list[int]=[0, 0], operation: bool=False):
@@ -20,4 +21,4 @@ class Task:
         else:
             win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
             win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
-        pass
+        time.sleep(0.02)
