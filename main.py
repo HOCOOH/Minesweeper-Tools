@@ -14,28 +14,20 @@ if __name__ == '__main__':
     Task([7, 7], True).Execute()
     time.sleep(0.1)
     # for i in range(2):
+    cnt = 1;
     while board.mineLeft > 0:
+        print('Pass %2d' % cnt)
+        cnt += 1
         # 获取图像数据
-        startTime = time.time()
         boardInfo = scanner.work()
-        print(boardInfo)
-        endTime = time.time()
-        print('scan: ' + str(endTime - startTime))
+        # print(boardInfo)
         # 算法分析
-        startTime = time.time()
         board.Refresh(boardInfo)
         tasks = board.Solution()
-        endTime = time.time()
-        print('sol : ' + str(endTime - startTime))
         if (len(tasks) == 0):
             break
         # 执行操作
-        startTime = time.time()
         for task in tasks:
             print(task.__dict__)
             task.Execute()
         time.sleep(0.1)
-        endTime = time.time()
-        print('exe : ' + str(endTime - startTime) + '\n')
-
-
