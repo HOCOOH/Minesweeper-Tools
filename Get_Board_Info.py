@@ -12,7 +12,8 @@ from Get_Window import Get_Window
 
 
 class Get_Board_Info():
-    def __init__(self, PIXEL_GAPX, PIXEL_GAPY, PIXEL_SIZE, CF, SIZE, BLOCKS, CNT_THRESHOLD, WINDOW_POSITION_START, previous_board, CELL_SIZE, BOARD_PIX_SIZE):
+
+    def __init__(self, PIXEL_GAPX, PIXEL_GAPY, PIXEL_SIZE, CF, SIZE, BLOCKS, CNT_THRESHOLD, WINDOW_POSITION_START, CELL_SIZE, BOARD_PIX_SIZE):
         self.PIXEL_GAPX = PIXEL_GAPX
         self.PIXEL_GAPY = PIXEL_GAPY
         self.PIXEL_SIZE = PIXEL_SIZE
@@ -21,17 +22,20 @@ class Get_Board_Info():
         self.BLOCKS = BLOCKS
         self.CNT_THRESHOLD = CNT_THRESHOLD
         self.WINDOW_POSITION_START = WINDOW_POSITION_START
-        self.previous_board = previous_board
         self.CELL_SIZE = CELL_SIZE
         self.BOARD_PIX_SIZE = BOARD_PIX_SIZE
+        self.previous_board = []
+
+    def board_refresh(self, Board_Info):
+        self.previous_board = Board_Info
 
     def cal_unknown_cell(self):
 
         previous_unknown_cells = []
-        if len(previous_board) != 0:
+        if len(self.previous_board) != 0:
             for c1 in range(self.SIZE):
                 for c2 in range(self.SIZE):
-                    if (board[c1][c2] == -2):
+                    if (self.previous_board[c1][c2] == -2):
                         previous_unknown_cells.append((c1,c2))
 
             return previous_unknown_cells
@@ -78,21 +82,19 @@ class Get_Board_Info():
 
         os.system('del *.png')
 
+        self.board_refresh(Board_Info)
         return Board_Info
-    
+
     def work(self,):
         return self.get_all_info()
     
 
-'''
 
 if __name__ == '__main__':
     start = time.time()
-    previous_board = []
-    test = Get_Board_Info(s.PIXEL_GAPX,s.PIXEL_GAPY,s.PIXEL_SIZE,s.CF, s.SIZE, s.BLOCKS,s.CNT_THRESHOLD,s.WINDOW_POSITION_START,previous_board, s.CELL_SIZE, s.BOARD_PIX_SIZE)
+    test = Get_Board_Info(s.PIXEL_GAPX,s.PIXEL_GAPY,s.PIXEL_SIZE,s.CF, s.SIZE, s.BLOCKS,s.CNT_THRESHOLD,s.WINDOW_POSITION_START, s.CELL_SIZE, s.BOARD_PIX_SIZE)
     Board_Info = test.work()
     for i in range(s.SIZE):
         print(Board_Info[i])
     end = time.time()
     print("Total:"+str(end-start))
-'''
