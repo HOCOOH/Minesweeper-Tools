@@ -2,15 +2,18 @@ import time
 import win32gui, win32ui, win32con, win32api
 import setting as s
 
+
+
 class Window_Cut():
 
-    def __init__(self,PIXEL_GAPX,PIXEL_GAPY,PIXEL_SIZE):
+    def __init__(self, PIXEL_GAPX, PIXEL_GAPY, PIXEL_SIZE, BOARD_PIX_SIZE):
         self.PIXEL_GAPX = PIXEL_GAPX
         self.PIXEL_GAPY = PIXEL_GAPY
         self.PIXEL_SIZE = PIXEL_SIZE
-        
-    def work(self, i, j):
-        position = (419+j*(self.PIXEL_GAPX), 118+i*(self.PIXEL_GAPY))
+        self.BOARD_PIX_SIZE = BOARD_PIX_SIZE
+
+    def work(self):
+        position = (410, 108)
         #print("{}{} shoot!".format(i,j))
         hwnd = 0 # 窗口的编号，0号表示当前活跃窗口
         # 根据窗口句柄获取窗口的设备上下文DC（Divice Context）
@@ -23,10 +26,10 @@ class Window_Cut():
         saveBitMap = win32ui.CreateBitmap()
         # 获取监控器信息
         MoniterDev = win32api.EnumDisplayMonitors(None, None)
-        w = int(self.PIXEL_SIZE)
-        h = int(self.PIXEL_SIZE)
-        a = int(position[0]) 
-        b = int(position[1])
+        w = self.BOARD_PIX_SIZE
+        h = self.BOARD_PIX_SIZE
+        a = position[0]
+        b = position[1]
         #print(w,h)
         # 为bitmap开辟空间
         saveBitMap.CreateCompatibleBitmap(mfcDC, w, h)
@@ -34,4 +37,6 @@ class Window_Cut():
         saveDC.SelectObject(saveBitMap)
         # 截取从左上角（0，0）长宽为（w，h）的图片
         saveDC.BitBlt((0, 0), (w, h), mfcDC, (a, b), win32con.SRCCOPY)
-        saveBitMap.SaveBitmapFile(saveDC,'./demo({}{}).png'.format(i,j))
+        saveBitMap.SaveBitmapFile(saveDC,'./demo.png'.format())
+
+
