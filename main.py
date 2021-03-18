@@ -18,6 +18,7 @@ if __name__ == '__main__':
         # 获取图像数据
         startTime = time.time()
         boardInfo = scanner.work()
+        print(boardInfo)
         endTime = time.time()
         print('scan: ' + str(endTime - startTime))
         # 算法分析
@@ -31,7 +32,7 @@ if __name__ == '__main__':
         # 执行操作
         startTime = time.time()
         for task in tasks:
-            # print(task.__dict__)
+            print(task.__dict__)
             task.Execute()
         time.sleep(0.1)
         endTime = time.time()
