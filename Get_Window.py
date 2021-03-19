@@ -12,4 +12,4 @@ class Get_Window():
         wrHd = win32gui.FindWindow(None, self.WINDOW_NAME)
         win32gui.SetForegroundWindow(wrHd)
         win32gui.ShowWindow(wrHd,win32con.SW_MAXIMIZE)
-        time.sleep(0.2)
+        time.sleep(0.5)

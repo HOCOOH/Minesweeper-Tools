@@ -3,14 +3,13 @@ import numpy
 
 
 class Pictures_Analysis():
-    def __init__(self, CF, SIZE, BLOCKS, CNT_THRESHOLD, pixel_values, CELL_SIZE, BOARD_PIX_SIZE):
+    def __init__(self, CF, BLOCKS, CNT_THRESHOLD, pixel_values, CELL_SIZE, WINDOW_WIDTH):
         self.CF = CF
-        self.SIZE = SIZE
         self.BLOCKS = BLOCKS
         self.CNT_THRESHOLD = CNT_THRESHOLD
         self.pixel_values = pixel_values
         self.CELL_SIZE = CELL_SIZE
-        self.BOARD_PIX_SIZE = BOARD_PIX_SIZE
+        self.WINDOW_WIDTH = WINDOW_WIDTH
 
     def pictures_analysis(self, p, q, position):
         width, height = self.CELL_SIZE, self.CELL_SIZE
@@ -19,7 +18,7 @@ class Pictures_Analysis():
             for c2 in range(height):
                 each_position = (int(position[0]) + c1, int(position[1]) + c2)
                 for key,value in self.CF.items():
-                    pixel_cell = self.pixel_values[each_position[1] * self.BOARD_PIX_SIZE+ each_position[0]]
+                    pixel_cell = self.pixel_values[each_position[1] * self.WINDOW_WIDTH+ each_position[0]]
                     if pixel_cell[0] in range(self.CF[key][0][0], self.CF[key][0][1]) and pixel_cell[1] in range(self.CF[key][1][0], self.CF[key][1][1]) and pixel_cell[2] in range(self.CF[key][2][0], self.CF[key][2][1]):
                         cnt_list[key] += 1
                         break;
