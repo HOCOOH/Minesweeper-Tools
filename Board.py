@@ -79,9 +79,13 @@ class Board:
                     # 策略三：对于周围剩余雷数为1但未翻开的格子=2的格子，对可选位置设置问号标记，并对与其共同相邻的格子进行推理
                     if self.grd[i][j].status != Grid.MINE:
                         self.Strategy3(self.grd[i][j], taskQueue)
+                        self.Strategy4(self.grd[i][j], taskQueue)
+        
 
-                # 策略四：当以上策略都失效时，结合剩余的雷数使用枚举法推理
-                pass
+
+
+        # 策略五：当以上策略都失效时，结合剩余的雷数使用枚举法推理
+        
         
 
         # 队列中操作去重并排序
@@ -146,7 +150,6 @@ class Board:
                         if item.status == Grid.UNKNOWN and item.pos != lt[0].pos \
                             and item.pos != lt[1].pos:
                             taskQueue.append(Task(item.pos, True))
-                            print(item.pos, True)
                     continue
                 if k.status - k.numMine - 1 == k.numUnknown - 2:  # 可以插旗
                     for item in self.GetAround(k):
@@ -156,8 +159,57 @@ class Board:
                             item.isDead = True
                             taskQueue.append(Task(item.pos, False))
                             self.mineLeft -= 1
-                            print('do: ', item.pos, False)
                             self.Check(item, taskQueue)
+
+    
+    def Strategy4(self, tar: Grid, taskQueue: list):
+        if tar.status - tar.numMine == 2 and tar.numUnknown == 3:
+            unList = []
+            #遍历八个格子找到Unknown格子，将坐标对作为一个元素加入列表
+            for k in self.GetAround(tar):
+                if k.status == Grid.UNKNOWN:
+                    unList.append(k.pos)
+            # 三个unknown格子要位于同一行或同一列
+            assert len(unList) == 3
+            if not ((unList[0][0] == unList[1][0] and unList[0][0] == unList[2][0]) or \
+                (unList[0][1] == unList[1][1] and unList[0][1] == unList[2][1])):
+                return
+            i, j = tar.pos
+            originList = [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]
+            tarList = []
+            for p in originList:
+                if p[0] < 0 or p[0] >= self.width or p[1] < 0 or p[1] >= self.height:
+                    continue
+                if self.grd[p[0]][p[1]].status > 0 and tar.pos != p and self.grd[p[0]][p[1]].isDead == False:
+                    tarList.append(self.grd[p[0]][p[1]])
+            for k in tarList:
+                if k.status - k.numMine - 1 == 0:
+                    # 翻开格子
+                    for item in self.GetAround(k):
+                        if item.status == Grid.UNKNOWN and item.pos not in unList:
+                            taskQueue.append(Task(item.pos, True))
+                            print(item.pos, True)
+                    # 插旗
+                    for p in unList:
+                        if abs(p[0] - k.pos[0]) > 1 or abs(p[1] - k.pos[1]) > 1:
+                            item = self.grd[p[0]][p[1]]
+                            item.status = Grid.MINE
+                            item.isDead = True
+                            taskQueue.append(Task(item.pos, False))
+                            print(item.pos, False)
+                            self.mineLeft -= 1
+                            self.Check(item, taskQueue)
+                            # 直接退出
+                            return
+
+
+    def FinalCheck(self):
+        if self.mineLeft != 0:
+            return
+        for i in range(self.width):
+            for j in range(self.height):
+                if self.grd[i][j].status == Grid.UNKNOWN:
+                    Task([i, j], True).Execute()
 
     # dubug
     def Report(self):

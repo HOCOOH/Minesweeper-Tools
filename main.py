@@ -31,3 +31,4 @@ if __name__ == '__main__':
             print(task.__dict__)
             task.Execute()
         time.sleep(0.1)
+    board.FinalCheck()
